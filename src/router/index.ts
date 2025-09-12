@@ -1,16 +1,11 @@
-import DashboardView from '@/views/DashboardView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createMemoryHistory, createRouter } from "vue-router";
+import WeatherWidget from "@/components/WeatherWidget.vue";
+
+const routes = [{ path: "/", component: WeatherWidget }];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: DashboardView,
-    },
-    
-  ],
-})
+  history: createMemoryHistory(),
+  routes,
+});
 
-export default router
+export default router;

@@ -1,11 +1,15 @@
-<script setup lang="ts">
-import { RouterView } from "vue-router";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <h1>Weather App</h1>
+  <UApp>
+    <UContainer>
+      <UHeader title="Nuxt UI" :ui="{ root: 'border-b-0' }" />
 
-  <RouterView />
+      <UMain>
+        <RouterView />
+      </UMain>
+    </UContainer>
+  </UApp>
 </template>
 
 <style scoped></style>

@@ -7,6 +7,6 @@
 - Vue Router v4
 - Pinia v3
 - Typescript v5.8
-- 
+-
 - NuxtUI v4
 - Open-Meteo API
