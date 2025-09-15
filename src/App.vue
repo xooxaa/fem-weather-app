@@ -2,12 +2,15 @@
 
 <template>
   <UApp>
-    <UContainer>
+    <UContainer :ui="{ base: 'max-w-6xl' }">
       <UHeader
         :toggle="{
           class: 'hidden',
         }"
-        :ui="{ root: 'border-b-0', container: 'px-0 sm:px-0 lg:px-0' }"
+        :ui="{
+          root: 'border-b-0',
+          container: 'px-0 sm:px-0 lg:px-0 mt-8',
+        }"
       >
         <template #left>
           <img src="@/assets/images/logo.svg" alt="Logo" />
