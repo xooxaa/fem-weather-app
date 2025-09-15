@@ -2,7 +2,7 @@
 
 <template>
   <UApp>
-    <UContainer :ui="{ base: 'max-w-6xl' }">
+    <UContainer>
       <UHeader
         :toggle="{
           class: 'hidden',
@@ -16,7 +16,7 @@
           <img src="@/assets/images/logo.svg" alt="Logo" />
         </template>
 
-        <template #right> Units </template>
+        <template #right> <UnitsDropdown /> </template>
       </UHeader>
 
       <UMain>
