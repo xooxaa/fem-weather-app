@@ -9,7 +9,7 @@
         }"
         :ui="{
           root: 'border-b-0',
-          container: 'px-0 sm:px-0 lg:px-0 mt-8',
+          container: 'px-0 sm:px-0 lg:px-0',
         }"
       >
         <template #left>

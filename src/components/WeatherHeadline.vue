@@ -15,7 +15,7 @@ const headline = headlines[randomIndex];
 </script>
 
 <template>
-  <div class="w-full text-center mt-12">
+  <div class="w-full text-center mt-8">
     <h1 class="text-6xl font-serif">{{ headline }}</h1>
   </div>
 </template>

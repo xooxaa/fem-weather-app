@@ -34,25 +34,19 @@ export const useUnitsStore = defineStore("units", () => {
     precipitation: "mm",
   });
 
-  function setUnits(newUnits: Partial<WeatherUnits>) {
-    units.value = { ...units.value, ...newUnits };
-  }
+  const isAllUnitsMetric = computed(
+    () =>
+      units.value.temperature === "C" &&
+      units.value.windSpeed === "km/h" &&
+      units.value.precipitation === "mm"
+  );
 
-  function setAllUnitsToMetric() {
-    units.value = {
-      temperature: "C",
-      windSpeed: "km/h",
-      precipitation: "mm",
-    };
-  }
-
-  function setAllUnitsToImperial() {
-    units.value = {
-      temperature: "F",
-      windSpeed: "mph",
-      precipitation: "in",
-    };
-  }
+  const isAllUnitsImperial = computed(
+    () =>
+      units.value.temperature === "F" &&
+      units.value.windSpeed === "mph" &&
+      units.value.precipitation === "in"
+  );
 
   const temperatureLabel = computed(() => {
     const opt = temperatureOptions.find(
@@ -73,8 +67,30 @@ export const useUnitsStore = defineStore("units", () => {
     return opt ? `${opt.long} (${opt.short})` : units.value.precipitation;
   });
 
+  function setUnits(newUnits: Partial<WeatherUnits>) {
+    units.value = { ...units.value, ...newUnits };
+  }
+
+  function setAllUnitsToMetric() {
+    units.value = {
+      temperature: "C",
+      windSpeed: "km/h",
+      precipitation: "mm",
+    };
+  }
+
+  function setAllUnitsToImperial() {
+    units.value = {
+      temperature: "F",
+      windSpeed: "mph",
+      precipitation: "in",
+    };
+  }
+
   return {
     units,
+    isAllUnitsMetric,
+    isAllUnitsImperial,
     temperatureLabel,
     windSpeedLabel,
     precipitationLabel,
