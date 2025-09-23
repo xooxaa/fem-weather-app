@@ -26,7 +26,7 @@ const props = defineProps({
 <template>
   <CurrentWeatherMainCard />
 
-  <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
     <CurrentWeatherCard title="Feels Like" :value="props.feelsLike" unit="°C" />
     <CurrentWeatherCard title="Humidity" :value="props.humidity" unit="%" />
     <CurrentWeatherCard

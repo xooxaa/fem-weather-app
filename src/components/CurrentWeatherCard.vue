@@ -17,8 +17,8 @@ defineProps({
 
 <template>
   <UCard variant="soft">
-    <p>{{ title }}</p>
-    <p class="text-3xl mt-4">{{ value }} {{ unit }}</p>
+    <p class="text-sm">{{ title }}</p>
+    <p class="text-3xl text-end mt-4">{{ value }} {{ unit }}</p>
   </UCard>
 </template>
 

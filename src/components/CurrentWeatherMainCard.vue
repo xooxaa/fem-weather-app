@@ -11,10 +11,10 @@ const now = new Date().toLocaleDateString("en-US", {
   <UCard
     variant="soft"
     :ui="{
-      root: 'h-72',
-      body: 'h-full flex flex-col items-center justify-center gap-8',
+      root: 'h-72 ',
+      body: 'h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between lg:mx-8 gap-8',
     }"
-    class="bg-today bg-today-small"
+    class="bg-[url('@/assets/images/bg-today-small.svg')] lg:bg-[url('@/assets/images/bg-today-large.svg')] bg-cover bg-center bg-no-repeat"
   >
     <div class="text-center">
       <h3 class="text-3xl font-bold mb-1">Berlin, Germany</h3>
@@ -33,17 +33,4 @@ const now = new Date().toLocaleDateString("en-US", {
   </UCard>
 </template>
 
-<style scoped>
-.bg-today-large {
-  background-image: url("@/assets/images/bg-today-large.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.bg-today-small {
-  background-image: url("@/assets/images/bg-today-small.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-</style>
+<style scoped></style>
