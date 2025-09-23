@@ -24,14 +24,14 @@ defineProps({
     variant="soft"
     :ui="{
       root: 'w-full p-0',
-      body: 'flex flex-col items-center gap-1 p-2 sm:p-2',
+      body: 'flex flex-col items-center gap-1 p-4 sm:p-4',
     }"
   >
     <p class="text-lg text-bold">{{ day }}</p>
     <img
       :src="`src/assets/images/icon-${icon}.webp`"
       :alt="icon"
-      class="w-20 h-20"
+      class="w-16 h-16"
     />
     <div class="flex justify-between w-full">
       <p class="text-sm">{{ lowTemp }}°</p>
