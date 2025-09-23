@@ -20,6 +20,7 @@ defineProps({
     variant="soft"
     :ui="{
       root: 'bg-neutral-700',
+      body: 'p-4 sm:p-4',
     }"
   >
     <p class="">{{ title }}</p>

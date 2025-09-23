@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 const hourlyData = [
   { time: "12 AM", icon: "fog", temp: 16 },
   { time: "1 AM", icon: "partly-cloudy", temp: 15 },
@@ -25,20 +27,41 @@ const hourlyData = [
   { time: "10 PM", icon: "fog", temp: 17 },
   { time: "11 PM", icon: "fog", temp: 16 },
 ];
+
+const days = ref([
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+  "Monday",
+]);
+const selectedDay = ref("Tuesday");
 </script>
 
 <template>
   <UCard
-    variant="subtle"
+    variant="soft"
     :ui="{
-      root: 'w-full p-0',
-      body: 'max-h-140 overflow-auto',
-      header: 'flex justify-between items-center',
+      root: 'w-full p-0 bg-neutral-800',
+      body: 'max-h-134 overflow-auto',
+      header: 'flex flex-wrap justify-between items-center',
     }"
   >
     <template #header>
       <h2 class="text-xl font-bold">Hourly Forcast</h2>
-      <p>Dropdown</p>
+      <USelect
+        v-model="selectedDay"
+        :items="days"
+        size="xl"
+        :content="{ align: 'end' }"
+        :ui="{
+          base: 'bg-neutral-700',
+          content: 'min-w-48 max-h-fit bg-neutral-800 px-1',
+          item: 'px-3 py-2 my-1 rounded bg-neutral-800 hover:bg-neutral-700 focus:bg-neutral-700 cursor-pointer',
+        }"
+      />
     </template>
 
     <HourlyForcastItem
