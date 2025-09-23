@@ -29,7 +29,7 @@ const hourlyData = [
 
 <template>
   <UCard
-    variant="soft"
+    variant="subtle"
     :ui="{
       root: 'w-full p-0',
       body: 'max-h-140 overflow-auto',

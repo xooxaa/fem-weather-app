@@ -17,10 +17,10 @@ defineProps({
 
 <template>
   <UCard
-    variant="soft"
+    variant="subtle"
     :ui="{
-      root: 'mb-4 p-0',
-      body: 'flex justify-between items-center p-2 sm:p-2',
+      root: 'mb-3 p-0 bg-neutral-700',
+      body: 'flex justify-between items-center p-1 sm:p-1',
     }"
   >
     <div class="flex items-center gap-2">

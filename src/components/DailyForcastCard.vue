@@ -23,7 +23,7 @@ defineProps({
   <UCard
     variant="soft"
     :ui="{
-      root: 'w-full p-0',
+      root: 'w-full p-0 bg-neutral-700',
       body: 'flex flex-col items-center gap-1 p-4 sm:p-4',
     }"
   >

@@ -16,7 +16,12 @@ defineProps({
 </script>
 
 <template>
-  <UCard variant="soft">
+  <UCard
+    variant="soft"
+    :ui="{
+      root: 'bg-neutral-700',
+    }"
+  >
     <p class="">{{ title }}</p>
     <p class="text-3xl text-end mt-4">{{ value }} {{ unit }}</p>
   </UCard>
