@@ -12,7 +12,7 @@ const forecastData = [
 
 <template>
   <div>
-    <h2 class="text-xl text-center font-bold mb-2">Daily Forecast</h2>
+    <h2 class="text-xl font-bold mb-2">Daily Forecast</h2>
 
     <div
       class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"

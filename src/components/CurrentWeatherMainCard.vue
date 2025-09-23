@@ -11,13 +11,13 @@ const now = new Date().toLocaleDateString("en-US", {
   <UCard
     variant="soft"
     :ui="{
-      root: 'h-72 ',
+      root: 'min-h-64 ',
       body: 'h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between lg:mx-8 gap-8',
     }"
     class="bg-[url('@/assets/images/bg-today-small.svg')] lg:bg-[url('@/assets/images/bg-today-large.svg')] bg-cover bg-center bg-no-repeat"
   >
     <div class="text-center">
-      <h3 class="text-3xl font-bold mb-1">Berlin, Germany</h3>
+      <h3 class="text-3xl font-bold my-1">Berlin, Germany</h3>
       <p>{{ now }}</p>
     </div>
 
