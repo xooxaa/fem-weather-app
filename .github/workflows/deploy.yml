@@ -1,4 +1,4 @@
-name: Deploy Vite/Vue to GitHub Pages
+Yname: Deploy Vite/Vue to GitHub Pages
 
 on:
   push:
@@ -27,5 +27,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_dir: ./dist
