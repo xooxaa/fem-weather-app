@@ -1,4 +1,4 @@
-Yname: Deploy Vite/Vue to GitHub Pages
+name: Deploy Vite/Vue to GitHub Pages
 
 on:
   push:
