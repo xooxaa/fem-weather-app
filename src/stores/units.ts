@@ -23,7 +23,7 @@ const precipitationOptions: WeatherUnit[] = [
 
 type WeatherUnits = {
   temperature: "C" | "F";
-  windSpeed: "km/h" | "mph";
+  windSpeed: "km/h" | "mph" | "m/s" | "knots";
   precipitation: "mm" | "in";
 };
 

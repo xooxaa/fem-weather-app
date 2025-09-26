@@ -1,4 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useGeolocationStore } from "@/stores/geolocation";
+import { useWeatherStore } from "@/stores/weather";
+import { storeToRefs } from "pinia";
+
+const geolocationStore = useGeolocationStore();
+// geolocationStore.searchGeolocations("Berlin");
+
+const weatherStore = useWeatherStore();
+const { weatherData } = storeToRefs(weatherStore);
+// weatherStore.getWeatherData();
+
+console.log(weatherData.value);
+</script>
 
 <template>
   <WeatherHeadline />
