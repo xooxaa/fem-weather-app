@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getWeatherIcon } from "@/utils/weatherIcons";
+
 defineProps({
   icon: {
     type: String,
@@ -24,11 +26,7 @@ defineProps({
     }"
   >
     <div class="flex items-center gap-2">
-      <img
-        :src="`src/assets/images/icon-${icon}.webp`"
-        :alt="icon"
-        class="w-12 h-12"
-      />
+      <img :src="getWeatherIcon(icon)" :alt="icon" class="w-12 h-12" />
       <p class="text-lg font-bold">{{ time }}</p>
     </div>
 

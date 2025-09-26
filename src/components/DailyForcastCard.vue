@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getWeatherIcon } from "@/utils/weatherIcons";
+
 defineProps({
   day: {
     type: String,
@@ -28,11 +30,7 @@ defineProps({
     }"
   >
     <p class="text-lg text-bold">{{ day }}</p>
-    <img
-      :src="`src/assets/images/icon-${icon}.webp`"
-      :alt="icon"
-      class="w-16 h-16"
-    />
+    <img :src="getWeatherIcon(icon)" :alt="icon" class="w-16 h-16" />
     <div class="flex justify-between w-full">
       <p class="text-sm">{{ lowTemp }}°</p>
       <p class="text-sm">{{ highTemp }}°</p>

@@ -9,8 +9,6 @@ const geolocationStore = useGeolocationStore();
 const weatherStore = useWeatherStore();
 const { weatherData } = storeToRefs(weatherStore);
 // weatherStore.getWeatherData();
-
-console.log(weatherData.value);
 </script>
 
 <template>
