@@ -61,31 +61,18 @@ export type HourlyVariable =
   | "wind_speed_180m"
   | "wind_speed_80m";
 
-/**
- * Represents the structure of the "hourly" field in the Open-Meteo API response.
- * Each property is an array of values, one per day.
- */
 export type HourlyResponseData<T extends HourlyVariable = HourlyVariable> = {
   time: string[];
 } & {
   [K in T]: number[];
 };
 
-/**
- * Represents a single entry of hourly data, with a time and all selected variables.
- * Example: { time: "2025-09-25T01:00", temperature_2m: 15.2, weather_code: 3 }
- */
 export type HourlyData<T extends HourlyVariable = HourlyVariable> = {
   time: string;
 } & {
   [K in T]: number;
 };
 
-/**
- * Converts a hourly time series object into an array of objects, one per hour.
- * @param data The hourly time series object from the API response.
- * @returns Array of objects, each representing an hour's data.
- */
 export function mapHourlyResponseToArray<T extends HourlyVariable>(
   data: HourlyResponseData<T>
 ): Array<HourlyData<T>> {
@@ -97,7 +84,6 @@ export function mapHourlyResponseToArray<T extends HourlyVariable>(
   return time.map((t, i) => {
     const entry = { time: t } as HourlyData<T>;
     for (const key of keys) {
-      // Indexing with generics is hard to express to TS; use a narrow cast here.
       (entry as any)[key] = (rest as any)[key][i] as number;
     }
     return entry;

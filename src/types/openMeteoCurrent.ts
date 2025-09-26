@@ -17,20 +17,12 @@ export type CurrentVariable =
   | "wind_gusts_10m"
   | "wind_speed_10m";
 
-/**
- * Represents the structure of the "current" field in the Open-Meteo API response.
- * Each property is a single value.
- */
 export type CurrentResponseData<T extends CurrentVariable = CurrentVariable> = {
   time: string;
 } & {
   [K in T]: number;
 };
 
-/**
- * Represents the current data, with a time and all selected variables.
- * Example: { time: "2025-09-25T01:00", temperature_2m: 15.2, weather_code: 3 }
- */
 export type CurrentData<T extends CurrentVariable = CurrentVariable> = {
   time: string;
 } & {

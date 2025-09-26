@@ -1,3 +1,5 @@
+// this utility library was inspired by https://github.com/atombrenner/openmeteo/blob/main/main.ts
+
 import { mapDailyResponseToArray } from "@/types/openMeteoDaily";
 import { mapHourlyResponseToArray } from "@/types/openMeteoHourly";
 
@@ -103,5 +105,3 @@ export const _fetch = async <T extends WeatherDataParams>(
 
   return await response.json();
 };
-
-// this utility library is inspired by https://github.com/atombrenner/openmeteo/blob/main/main.ts

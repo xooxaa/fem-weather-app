@@ -22,36 +22,22 @@ export type DailyVariable =
   | "wind_gusts_10m_max"
   | "wind_speed_10m_max";
 
-// Value type mapping for each variable
 type DailyValueType<K extends DailyVariable> = K extends "sunrise" | "sunset"
   ? string
   : number;
 
-/**
- * Represents the structure of the "daily" field in the Open-Meteo API response.
- * Each property is an array of values, one per day.
- */
 export type DailyResponseData<T extends DailyVariable = DailyVariable> = {
   time: string[];
 } & {
   [K in T]: Array<DailyValueType<K>>;
 };
 
-/**
- * Represents a single entry of daily data, with a time and all selected variables.
- * Example: { time: "2025-09-25T01:00", temperature_2m: 15.2, weather_code: 3 }
- */
 export type DailyData<T extends DailyVariable = DailyVariable> = {
   time: string;
 } & {
   [K in T]: DailyValueType<K>;
 };
 
-/**
- * Converts a daily time series object into an array of objects, one per day.
- * @param data The daily time series object from the API response.
- * @returns Array of objects, each representing a day's data.
- */
 export function mapDailyResponseToArray<T extends DailyVariable>(
   data: DailyResponseData<T>
 ): Array<DailyData<T>> {
@@ -63,7 +49,6 @@ export function mapDailyResponseToArray<T extends DailyVariable>(
   return time.map((t, i) => {
     const entry = { time: t } as DailyData<T>;
     for (const key of keys) {
-      // Indexing with generics is hard to express to TS; use a narrow cast here.
       (entry as any)[key] = (rest as any)[key][i] as DailyValueType<T>;
     }
     return entry;
