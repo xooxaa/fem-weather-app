@@ -1,9 +1,10 @@
+# Ensure Actions have write permission (Actions Settings > Set Read and write permissions)
 name: Deploy Vite/Vue to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main  # or your default branch
+  #push:
+    #branches:
+      #- main 
   workflow_dispatch:
 
 jobs:
