@@ -1,5 +1,6 @@
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { defineStore } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
 
 type WeatherUnit = {
   short: string;
@@ -28,10 +29,14 @@ type WeatherUnits = {
 };
 
 export const useUnitsStore = defineStore("units", () => {
-  const units = ref<WeatherUnits>({
+  const DEFAULT_UNITS: WeatherUnits = {
     temperature: "C",
     windSpeed: "km/h",
     precipitation: "mm",
+  };
+
+  const units = useLocalStorage<WeatherUnits>("weather-units", DEFAULT_UNITS, {
+    mergeDefaults: true,
   });
 
   const isAllUnitsMetric = computed(

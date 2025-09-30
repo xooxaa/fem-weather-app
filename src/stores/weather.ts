@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { fetchWeatherData } from "@/utils/openMeteoQuerries";
 import type { WeatherDataParams } from "@/types/openMeteoParams";

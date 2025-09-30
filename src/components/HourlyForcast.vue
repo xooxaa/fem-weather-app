@@ -45,7 +45,7 @@ const selectedDay = ref("Tuesday");
     variant="soft"
     :ui="{
       root: 'w-full p-0 bg-neutral-800',
-      body: 'max-h-134 overflow-auto',
+      body: 'max-h-134 overflow-auto py-0 sm:py-0',
       header: 'flex flex-wrap justify-between items-center',
     }"
   >
@@ -55,10 +55,12 @@ const selectedDay = ref("Tuesday");
         v-model="selectedDay"
         :items="days"
         size="xl"
+        variant="subtle"
         :content="{ align: 'end' }"
         :ui="{
           base: 'bg-neutral-700',
-          content: 'min-w-48 max-h-fit bg-neutral-800 px-1',
+          content:
+            'min-w-48 max-h-fit bg-neutral-800 px-1 border-2 border-neutral-700',
           item: 'px-3 py-2 my-1 rounded bg-neutral-800 hover:bg-neutral-700 focus:bg-neutral-700 cursor-pointer',
         }"
       />

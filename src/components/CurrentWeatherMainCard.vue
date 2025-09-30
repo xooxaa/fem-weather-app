@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { useLocationStore } from "@/stores/location";
+
+const geolocationStore = useLocationStore();
+const { location } = geolocationStore;
+
 const now = new Date().toLocaleDateString("en-US", {
   weekday: "long",
   month: "short",
@@ -17,7 +22,9 @@ const now = new Date().toLocaleDateString("en-US", {
     class="bg-[url('@/assets/images/bg-today-small.svg')] lg:bg-[url('@/assets/images/bg-today-large.svg')] bg-cover bg-center bg-no-repeat"
   >
     <div class="text-center">
-      <h3 class="text-3xl font-bold my-1">Berlin, Germany</h3>
+      <h3 class="text-3xl font-bold my-1">
+        {{ location.name }}, {{ location.country }}
+      </h3>
       <p>{{ now }}</p>
     </div>
 

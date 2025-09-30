@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useGeolocationStore } from "@/stores/geolocation";
+import { useLocationStore } from "@/stores/location";
 import { useWeatherStore } from "@/stores/weather";
 import { storeToRefs } from "pinia";
 
-const geolocationStore = useGeolocationStore();
-// geolocationStore.searchGeolocations("Berlin");
+const geolocationStore = useLocationStore();
 
 const weatherStore = useWeatherStore();
 const { weatherData } = storeToRefs(weatherStore);
