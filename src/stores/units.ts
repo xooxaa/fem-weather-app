@@ -28,6 +28,19 @@ type WeatherUnits = {
   precipitation: "mm" | "in";
 };
 
+function isValidWeatherUnits(object: any): object is WeatherUnits {
+  return (
+    object &&
+    typeof object === "object" &&
+    (object.temperature === "C" || object.temperature === "F") &&
+    (object.windSpeed === "km/h" ||
+      object.windSpeed === "mph" ||
+      object.windSpeed === "m/s" ||
+      object.windSpeed === "knots") &&
+    (object.precipitation === "mm" || object.precipitation === "in")
+  );
+}
+
 export const useUnitsStore = defineStore("units", () => {
   const DEFAULT_UNITS: WeatherUnits = {
     temperature: "C",
@@ -42,6 +55,10 @@ export const useUnitsStore = defineStore("units", () => {
       mergeDefaults: true,
     }
   );
+
+  if (!isValidWeatherUnits(storedUnits.value)) {
+    storedUnits.value = DEFAULT_UNITS;
+  }
 
   const units = computed<WeatherUnits>({
     get: () => storedUnits.value,

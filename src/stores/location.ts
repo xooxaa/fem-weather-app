@@ -8,16 +8,36 @@ import {
   getRandomPredefinedLocation,
 } from "@/utils/predefinedLocations";
 
+function isValidGeolocation(object: any): object is Geolocation {
+  return (
+    object &&
+    typeof object === "object" &&
+    typeof object.id === "number" &&
+    typeof object.name === "string" &&
+    typeof object.latitude === "number" &&
+    typeof object.longitude === "number" &&
+    typeof object.country === "string"
+  );
+}
+
 export const useLocationStore = defineStore("geolocation", () => {
   const storedWeatherLocation = useLocalStorage<Geolocation>(
     "weather-location",
     getRandomPredefinedLocation()
   );
 
+  if (!isValidGeolocation(storedWeatherLocation.value)) {
+    storedWeatherLocation.value = getRandomPredefinedLocation();
+  }
+
   const storedFavoriteLocations = useLocalStorage<Geolocation[]>(
     "weather-favorite-locations",
     []
   );
+
+  storedFavoriteLocations.value = Array.isArray(storedFavoriteLocations.value)
+    ? storedFavoriteLocations.value.filter(isValidGeolocation)
+    : [];
 
   const weatherLocation = computed<Geolocation>({
     get: () => storedWeatherLocation.value,
