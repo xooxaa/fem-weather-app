@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useLocationStore } from "@/stores/location";
+const locationStore = useLocationStore();
+
+const handleRandomLocation = () => {
+  locationStore.setRandomPredefinedLocation();
+};
+</script>
 
 <template>
   <UFieldGroup class="flex max-w-xl mx-auto mt-8" size="xl">
@@ -10,6 +17,12 @@
     />
 
     <UButton class="hover:cursor-pointer">Search</UButton>
+
+    <UButton
+      class="hover:cursor-pointer"
+      icon="i-lucide-shuffle"
+      @click="handleRandomLocation"
+    ></UButton>
   </UFieldGroup>
 </template>
 

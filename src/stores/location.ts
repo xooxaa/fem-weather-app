@@ -9,6 +9,27 @@ import {
 } from "@/utils/predefinedLocations";
 
 export const useLocationStore = defineStore("geolocation", () => {
+  const weatherLocation = useLocalStorage<Geolocation>(
+    "weather-location",
+    getRandomPredefinedLocation()
+  );
+
+  const favoriteLocations = useLocalStorage<Geolocation[]>(
+    "weather-favorite-locations",
+    []
+  );
+
+  const searchResults = ref<Geolocation[]>([]);
+  const isSearching = ref(false);
+  const searchError = ref<string | null>(null);
+
+  const isFavoriteLocation = computed(() => {
+    const currentLocationId = weatherLocation.value.id;
+    return favoriteLocations.value.some(
+      (favoriteLocation) => favoriteLocation.id === currentLocationId
+    );
+  });
+
   const isPredefinedLocation = computed(() => {
     const currentLocationId = weatherLocation.value.id;
     return predefinedLocations.some(
@@ -16,10 +37,13 @@ export const useLocationStore = defineStore("geolocation", () => {
     );
   });
 
-  const favoriteLocations = useLocalStorage<Geolocation[]>(
-    "weather-favorite-locations",
-    []
-  );
+  const setWeatherLocation = (location: Geolocation) => {
+    weatherLocation.value = location;
+  };
+
+  const setRandomPredefinedLocation = () => {
+    weatherLocation.value = getRandomPredefinedLocation();
+  };
 
   const addFavoriteLocation = (newLocation: Geolocation) => {
     if (
@@ -36,26 +60,6 @@ export const useLocationStore = defineStore("geolocation", () => {
       (favoriteLocation) => favoriteLocation.id !== locationId
     );
   };
-
-  const isFavoriteLocation = computed(() => {
-    const currentLocationId = weatherLocation.value.id;
-    return favoriteLocations.value.some(
-      (favoriteLocation) => favoriteLocation.id === currentLocationId
-    );
-  });
-
-  const weatherLocation = useLocalStorage<Geolocation>(
-    "weather-location",
-    getRandomPredefinedLocation()
-  );
-
-  const setWeatherLocation = (location: Geolocation) => {
-    weatherLocation.value = location;
-  };
-
-  const searchResults = ref<Geolocation[]>([]);
-  const isSearching = ref(false);
-  const searchError = ref<string | null>(null);
 
   const searchGeolocations = async (searchTerm: string) => {
     if (!searchTerm.trim()) {
@@ -76,11 +80,12 @@ export const useLocationStore = defineStore("geolocation", () => {
   };
 
   return {
-    location: weatherLocation,
+    weatherLocation,
     searchResults,
     isSearching,
     searchError,
     searchGeolocations,
     setWeatherLocation,
+    setRandomPredefinedLocation,
   };
 });

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useLocationStore } from "@/stores/location";
+import { storeToRefs } from "pinia";
 
 const geolocationStore = useLocationStore();
-const { location } = geolocationStore;
+const { weatherLocation } = storeToRefs(geolocationStore);
 
 const now = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -23,7 +24,7 @@ const now = new Date().toLocaleDateString("en-US", {
   >
     <div class="text-center">
       <h3 class="text-3xl font-bold my-1">
-        {{ location.name }}, {{ location.country }}
+        {{ weatherLocation.name }}, {{ weatherLocation.country }}
       </h3>
       <p>{{ now }}</p>
     </div>
