@@ -9,15 +9,29 @@ import {
 } from "@/utils/predefinedLocations";
 
 export const useLocationStore = defineStore("geolocation", () => {
-  const weatherLocation = useLocalStorage<Geolocation>(
+  const storedWeatherLocation = useLocalStorage<Geolocation>(
     "weather-location",
     getRandomPredefinedLocation()
   );
 
-  const favoriteLocations = useLocalStorage<Geolocation[]>(
+  const storedFavoriteLocations = useLocalStorage<Geolocation[]>(
     "weather-favorite-locations",
     []
   );
+
+  const weatherLocation = computed<Geolocation>({
+    get: () => storedWeatherLocation.value,
+    set: (val) => {
+      storedWeatherLocation.value = val;
+    },
+  });
+
+  const favoriteLocations = computed<Geolocation[]>({
+    get: () => storedFavoriteLocations.value,
+    set: (val) => {
+      storedFavoriteLocations.value = val;
+    },
+  });
 
   const searchResults = ref<Geolocation[]>([]);
   const isSearching = ref(false);
@@ -51,7 +65,7 @@ export const useLocationStore = defineStore("geolocation", () => {
         (favoriteLocation) => favoriteLocation.id === newLocation.id
       )
     ) {
-      favoriteLocations.value.push(newLocation);
+      favoriteLocations.value = [...favoriteLocations.value, newLocation];
     }
   };
 
@@ -81,11 +95,14 @@ export const useLocationStore = defineStore("geolocation", () => {
 
   return {
     weatherLocation,
+    favoriteLocations,
     searchResults,
     isSearching,
     searchError,
     searchGeolocations,
     setWeatherLocation,
     setRandomPredefinedLocation,
+    addFavoriteLocation,
+    removeFavoriteLocation,
   };
 });

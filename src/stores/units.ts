@@ -35,8 +35,19 @@ export const useUnitsStore = defineStore("units", () => {
     precipitation: "mm",
   };
 
-  const units = useLocalStorage<WeatherUnits>("weather-units", DEFAULT_UNITS, {
-    mergeDefaults: true,
+  const storedUnits = useLocalStorage<WeatherUnits>(
+    "weather-units",
+    DEFAULT_UNITS,
+    {
+      mergeDefaults: true,
+    }
+  );
+
+  const units = computed<WeatherUnits>({
+    get: () => storedUnits.value,
+    set: (val) => {
+      storedUnits.value = val;
+    },
   });
 
   const isAllUnitsMetric = computed(
