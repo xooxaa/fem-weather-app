@@ -116,6 +116,8 @@ export const useLocationStore = defineStore("geolocation", () => {
   return {
     weatherLocation,
     favoriteLocations,
+    isFavoriteLocation,
+    isPredefinedLocation,
     searchResults,
     isSearching,
     searchError,
