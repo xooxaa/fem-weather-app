@@ -1,43 +1,56 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
+import { storeToRefs } from "pinia";
+import { useWeatherStore } from "@/stores/weather";
+import { useUnitsStore } from "@/stores/units";
+import { getIconFromWeatherCode } from "@/utils/weatherIcons";
 
-const hourlyData = [
-  { time: "12 AM", icon: "fog", temp: 16 },
-  { time: "1 AM", icon: "partly-cloudy", temp: 15 },
-  { time: "2 AM", icon: "overcast", temp: 15 },
-  { time: "3 AM", icon: "rain", temp: 14 },
-  { time: "4 AM", icon: "storm", temp: 14 },
-  { time: "5 AM", icon: "fog", temp: 13 },
-  { time: "6 AM", icon: "fog", temp: 13 },
-  { time: "7 AM", icon: "sunny", temp: 14 },
-  { time: "8 AM", icon: "sunny", temp: 15 },
-  { time: "9 AM", icon: "sunny", temp: 17 },
-  { time: "10 AM", icon: "partly-cloudy", temp: 18 },
-  { time: "11 AM", icon: "partly-cloudy", temp: 19 },
-  { time: "12 PM", icon: "sunny", temp: 21 },
-  { time: "1 PM", icon: "sunny", temp: 22 },
-  { time: "2 PM", icon: "sunny", temp: 23 },
-  { time: "3 PM", icon: "partly-cloudy", temp: 23 },
-  { time: "4 PM", icon: "overcast", temp: 22 },
-  { time: "5 PM", icon: "rain", temp: 21 },
-  { time: "6 PM", icon: "rain", temp: 20 },
-  { time: "7 PM", icon: "storm", temp: 19 },
-  { time: "8 PM", icon: "overcast", temp: 18 },
-  { time: "9 PM", icon: "overcast", temp: 17 },
-  { time: "10 PM", icon: "fog", temp: 17 },
-  { time: "11 PM", icon: "fog", temp: 16 },
-];
+const weatherStore = useWeatherStore();
+const { weatherData } = storeToRefs(weatherStore);
 
-const days = ref([
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-  "Monday",
-]);
-const selectedDay = ref("Tuesday");
+const unitsStore = useUnitsStore();
+const { getTemperatureInCurrentUnit } = unitsStore;
+
+const days = computed(() => {
+  const current = weatherData.value?.current?.time;
+  const forcastDate = current ? new Date(current) : new Date();
+  const dateFormat = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+
+  return Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(forcastDate);
+    date.setDate(forcastDate.getDate() + i);
+    return dateFormat.format(date);
+  });
+});
+
+const selectedDay = ref("");
+
+watchEffect(() => {
+  if (!selectedDay.value && days.value.length) {
+    selectedDay.value = days.value[0];
+  }
+});
+
+console.log(weatherData.value?.hourly);
+
+const hourlyData = computed(() => {
+  if (!weatherData.value?.hourly || !selectedDay.value) return [];
+
+  return weatherData.value.hourly.filter((hour) => {
+    const hourDate = new Date(hour.time);
+    const dayName = hourDate.toLocaleDateString("en-US", {
+      weekday: "long",
+    });
+    return dayName === selectedDay.value;
+  });
+});
+
+function getTime(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+  });
+}
 </script>
 
 <template>
@@ -69,9 +82,9 @@ const selectedDay = ref("Tuesday");
     <HourlyForcastItem
       v-for="(hour, idx) in hourlyData"
       :key="`${hour.time}-${idx}`"
-      :icon="hour.icon"
-      :time="hour.time"
-      :temp="hour.temp"
+      :icon="getIconFromWeatherCode(hour.weather_code)"
+      :time="getTime(hour.time)"
+      :temp="getTemperatureInCurrentUnit(hour.temperature_2m)"
     />
   </UCard>
 </template>

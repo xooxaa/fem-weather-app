@@ -19,11 +19,16 @@ const currentWeatherIcon = computed(() => {
 const unitsStore = useUnitsStore();
 const { getTemperatureInCurrentUnit } = unitsStore;
 
-const now = new Date().toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "short",
-  day: "numeric",
-  year: "numeric",
+const date = computed(() => {
+  return new Date(weatherData.value?.current.time || "").toLocaleDateString(
+    "en-US",
+    {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
 });
 </script>
 
@@ -40,7 +45,7 @@ const now = new Date().toLocaleDateString("en-US", {
       <h3 class="text-3xl font-bold my-1">
         {{ weatherLocation.name }}, {{ weatherLocation.country }}
       </h3>
-      <p>{{ now }}</p>
+      <p>{{ date }}</p>
     </div>
 
     <div class="flex items-center gap-6">
