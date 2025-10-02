@@ -9,20 +9,27 @@ import type { WeatherData } from "@/utils/openMeteoQuerries";
 import { useLocationStore } from "./location";
 
 const hourly: HourlyVariable[] = [
+  "weather_code",
   "temperature_2m",
-  "relative_humidity_2m",
+  "precipitation",
+];
+const daily: DailyVariable[] = [
+  "weather_code",
+  "temperature_2m_max",
+  "temperature_2m_min",
+  "precipitation_sum",
+  "sunrise",
+  "sunset",
+];
+const current: CurrentVariable[] = [
+  "weather_code",
+  "temperature_2m",
   "apparent_temperature",
+  "relative_humidity_2m",
   "precipitation",
   "wind_speed_10m",
   "wind_direction_10m",
-  "weather_code",
 ];
-const daily: DailyVariable[] = [
-  "temperature_2m_max",
-  "temperature_2m_min",
-  "weather_code",
-];
-const current: CurrentVariable[] = ["temperature_2m", "weather_code"];
 
 export const useWeatherStore = defineStore("weather", () => {
   const locationStore = useLocationStore();

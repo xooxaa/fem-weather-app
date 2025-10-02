@@ -12,6 +12,8 @@ const temperatureOptions: WeatherUnit[] = [
   { short: "F", long: "Fahrenheit" },
 ];
 
+const humidityOptions: WeatherUnit[] = [{ short: "%", long: "Percentage" }];
+
 const windSpeedOptions: WeatherUnit[] = [
   { short: "km/h", long: "Kilometers per hour" },
   { short: "mph", long: "Miles per Hour" },
@@ -24,6 +26,7 @@ const precipitationOptions: WeatherUnit[] = [
 
 type WeatherUnits = {
   temperature: "C" | "F";
+  humidity: "%";
   windSpeed: "km/h" | "mph" | "m/s" | "knots";
   precipitation: "mm" | "in";
 };
@@ -44,6 +47,7 @@ function isValidWeatherUnits(object: any): object is WeatherUnits {
 export const useUnitsStore = defineStore("units", () => {
   const DEFAULT_UNITS: WeatherUnits = {
     temperature: "C",
+    humidity: "%",
     windSpeed: "km/h",
     precipitation: "mm",
   };
@@ -107,6 +111,7 @@ export const useUnitsStore = defineStore("units", () => {
   function setAllUnitsToMetric() {
     units.value = {
       temperature: "C",
+      humidity: "%",
       windSpeed: "km/h",
       precipitation: "mm",
     };
@@ -115,9 +120,80 @@ export const useUnitsStore = defineStore("units", () => {
   function setAllUnitsToImperial() {
     units.value = {
       temperature: "F",
+      humidity: "%",
       windSpeed: "mph",
       precipitation: "in",
     };
+  }
+
+  function getTemperatureInCurrentUnit(
+    tempC: number,
+    decimals: number = 1
+  ): number {
+    let result =
+      units.value.temperature === "C"
+        ? tempC
+        : units.value.temperature === "F"
+        ? tempC * (9 / 5) + 32
+        : tempC;
+    if (typeof decimals === "number") {
+      result = parseFloat(result.toFixed(decimals));
+    }
+    return result;
+  }
+
+  function getHumidityInCurrentUnit(
+    humidity: number,
+    decimals: number = 1
+  ): number {
+    let result = humidity;
+    if (typeof decimals === "number") {
+      result = parseFloat(result.toFixed(decimals));
+    }
+    return result;
+  }
+
+  function getWindSpeedInCurrentUnit(
+    speedKmh: number,
+    decimals: number = 1
+  ): number {
+    let result: number;
+    switch (units.value.windSpeed) {
+      case "km/h":
+        result = speedKmh;
+        break;
+      case "mph":
+        result = speedKmh / 1.609;
+        break;
+      case "m/s":
+        result = speedKmh / 3.6;
+        break;
+      case "knots":
+        result = speedKmh / 1.852;
+        break;
+      default:
+        result = speedKmh;
+    }
+    if (typeof decimals === "number") {
+      result = parseFloat(result.toFixed(decimals));
+    }
+    return result;
+  }
+
+  function getPrecipitationInCurrentUnit(
+    precipMm: number,
+    decimals: number = 1
+  ): number {
+    let result =
+      units.value.precipitation === "mm"
+        ? precipMm
+        : units.value.precipitation === "in"
+        ? precipMm / 25.4
+        : precipMm;
+    if (typeof decimals === "number") {
+      result = parseFloat(result.toFixed(decimals));
+    }
+    return result;
   }
 
   return {
@@ -130,5 +206,9 @@ export const useUnitsStore = defineStore("units", () => {
     setUnits,
     setAllUnitsToMetric,
     setAllUnitsToImperial,
+    getTemperatureInCurrentUnit,
+    getHumidityInCurrentUnit,
+    getWindSpeedInCurrentUnit,
+    getPrecipitationInCurrentUnit,
   };
 });

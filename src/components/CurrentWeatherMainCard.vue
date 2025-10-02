@@ -4,6 +4,7 @@ import { storeToRefs } from "pinia";
 import { useLocationStore } from "@/stores/location";
 import { useWeatherStore } from "@/stores/weather";
 import { getWeatherIcon, getIconFromWeatherCode } from "@/utils/weatherIcons";
+import { useUnitsStore } from "@/stores/units";
 
 const geolocationStore = useLocationStore();
 const { weatherLocation } = storeToRefs(geolocationStore);
@@ -20,6 +21,9 @@ const currentTemperatureRounded = computed(() =>
     ? Math.round(weatherData.value.current.temperature_2m)
     : null
 );
+
+const unitsStore = useUnitsStore();
+const { getTemperatureInCurrentUnit } = unitsStore;
 
 const now = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -52,7 +56,9 @@ const now = new Date().toLocaleDateString("en-US", {
         class="w-32 h-32"
       />
 
-      <h1 class="text-8xl italic">{{ currentTemperatureRounded }}°</h1>
+      <h1 class="text-8xl italic">
+        {{ getTemperatureInCurrentUnit(currentTemperatureRounded || 20) }}°
+      </h1>
     </div>
   </UCard>
 </template>
