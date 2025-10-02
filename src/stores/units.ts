@@ -126,37 +126,22 @@ export const useUnitsStore = defineStore("units", () => {
     };
   }
 
-  function getTemperatureInCurrentUnit(
-    tempC: number,
-    decimals: number = 1
-  ): number {
+  function getTemperatureInCurrentUnit(tempC: number): number {
     let result =
       units.value.temperature === "C"
         ? tempC
         : units.value.temperature === "F"
         ? tempC * (9 / 5) + 32
         : tempC;
-    if (typeof decimals === "number") {
-      result = parseFloat(result.toFixed(decimals));
-    }
-    return result;
+    return Math.round(result);
   }
 
-  function getHumidityInCurrentUnit(
-    humidity: number,
-    decimals: number = 1
-  ): number {
+  function getHumidityInCurrentUnit(humidity: number): number {
     let result = humidity;
-    if (typeof decimals === "number") {
-      result = parseFloat(result.toFixed(decimals));
-    }
-    return result;
+    return Math.round(result);
   }
 
-  function getWindSpeedInCurrentUnit(
-    speedKmh: number,
-    decimals: number = 1
-  ): number {
+  function getWindSpeedInCurrentUnit(speedKmh: number): number {
     let result: number;
     switch (units.value.windSpeed) {
       case "km/h":
@@ -174,26 +159,20 @@ export const useUnitsStore = defineStore("units", () => {
       default:
         result = speedKmh;
     }
-    if (typeof decimals === "number") {
-      result = parseFloat(result.toFixed(decimals));
-    }
-    return result;
+    return Math.round(result);
   }
 
-  function getPrecipitationInCurrentUnit(
-    precipMm: number,
-    decimals: number = 1
-  ): number {
+  function getPrecipitationInCurrentUnit(precipMm: number): number {
     let result =
       units.value.precipitation === "mm"
         ? precipMm
         : units.value.precipitation === "in"
         ? precipMm / 25.4
         : precipMm;
-    if (typeof decimals === "number") {
-      result = parseFloat(result.toFixed(decimals));
-    }
-    return result;
+
+    const decimals = units.value.precipitation === "in" ? 1 : 0;
+
+    return parseFloat(result.toFixed(decimals));
   }
 
   return {

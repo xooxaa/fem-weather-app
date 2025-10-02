@@ -16,12 +16,6 @@ const currentWeatherIcon = computed(() => {
   return getIconFromWeatherCode(weatherData.value?.current.weather_code || 0);
 });
 
-const currentTemperatureRounded = computed(() =>
-  weatherData.value?.current.temperature_2m != null
-    ? Math.round(weatherData.value.current.temperature_2m)
-    : null
-);
-
 const unitsStore = useUnitsStore();
 const { getTemperatureInCurrentUnit } = unitsStore;
 
@@ -57,7 +51,11 @@ const now = new Date().toLocaleDateString("en-US", {
       />
 
       <h1 class="text-8xl italic">
-        {{ getTemperatureInCurrentUnit(currentTemperatureRounded || 20) }}°
+        {{
+          getTemperatureInCurrentUnit(
+            weatherData?.current.temperature_2m || 20
+          )
+        }}°
       </h1>
     </div>
   </UCard>
