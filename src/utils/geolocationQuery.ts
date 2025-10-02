@@ -9,7 +9,7 @@ export async function getGeolocations(
   searchTerm: string
 ): Promise<Geolocation[]> {
   const params = new URLSearchParams();
-  params.append("name", encodeURIComponent(searchTerm));
+  params.append("name", searchTerm);
   params.append("count", "5");
   params.append("language", "en");
   params.append("format", "json");
