@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { useWeatherStore } from "@/stores/weather";
 import { storeToRefs } from "pinia";
+import { useUnitsStore } from "@/stores/units";
+import { useWeatherStore } from "@/stores/weather";
 import { getIconFromWeatherCode } from "@/utils/weatherIcons";
+
+const unitsStore = useUnitsStore();
+const { getTemperatureInCurrentUnit } = unitsStore;
 
 const weatherStore = useWeatherStore();
 const { weatherData } = storeToRefs(weatherStore);
@@ -25,8 +29,8 @@ function getWeekday(dateString: string): string {
         :key="`${day}-${idx}`"
         :day="getWeekday(day.time)"
         :icon="getIconFromWeatherCode(day.weather_code)"
-        :lowTemp="day.temperature_2m_min"
-        :highTemp="day.temperature_2m_max"
+        :lowTemp="getTemperatureInCurrentUnit(day.temperature_2m_min)"
+        :highTemp="getTemperatureInCurrentUnit(day.temperature_2m_max)"
       />
     </div>
   </div>
