@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { useLocationStore } from "@/stores/location";
 import { useWeatherStore } from "@/stores/weather";
-import { storeToRefs } from "pinia";
-
-const geolocationStore = useLocationStore();
 
 const weatherStore = useWeatherStore();
-const { weatherData } = storeToRefs(weatherStore);
-// weatherStore.getWeatherData();
+const geolocationStore = useLocationStore();
 </script>
 
 <template>

@@ -20,7 +20,7 @@ function isValidGeolocation(object: any): object is Geolocation {
   );
 }
 
-export const useLocationStore = defineStore("geolocation", () => {
+export const useLocationStore = defineStore("location", () => {
   const storedWeatherLocation = useLocalStorage<Geolocation>(
     "weather-location",
     getRandomPredefinedLocation()

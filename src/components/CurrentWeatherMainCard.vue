@@ -1,9 +1,25 @@
 <script setup lang="ts">
-import { useLocationStore } from "@/stores/location";
+import { computed } from "vue";
 import { storeToRefs } from "pinia";
+import { useLocationStore } from "@/stores/location";
+import { useWeatherStore } from "@/stores/weather";
+import { getWeatherIcon, getIconFromWeatherCode } from "@/utils/weatherIcons";
 
 const geolocationStore = useLocationStore();
 const { weatherLocation } = storeToRefs(geolocationStore);
+
+const weatherStore = useWeatherStore();
+const { weatherData } = storeToRefs(weatherStore);
+
+const currentWeatherIcon = computed(() => {
+  return getIconFromWeatherCode(weatherData.value?.current.weather_code || 0);
+});
+
+const currentTemperatureRounded = computed(() =>
+  weatherData.value?.current.temperature_2m != null
+    ? Math.round(weatherData.value.current.temperature_2m)
+    : null
+);
 
 const now = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -31,12 +47,12 @@ const now = new Date().toLocaleDateString("en-US", {
 
     <div class="flex items-center gap-6">
       <img
-        src="@/assets/images/icon-sunny.webp"
-        alt="sunny"
+        :src="getWeatherIcon(currentWeatherIcon)"
+        :alt="currentWeatherIcon"
         class="w-32 h-32"
       />
 
-      <h1 class="text-8xl italic">21°</h1>
+      <h1 class="text-8xl italic">{{ currentTemperatureRounded }}°</h1>
     </div>
   </UCard>
 </template>
