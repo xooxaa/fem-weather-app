@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "DM Sans";
-  src: url("../fonts/DMSans.ttf") format("truetype");
+  src: url("./fonts/DMSans.ttf") format("truetype");
   font-weight: 300 500 600 700;
   font-style: normal;
   font-display: swap;
@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: "DM Sans";
-  src: url("../fonts/DMSans-Italic.ttf") format("truetype");
+  src: url("./fonts/DMSans-Italic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -19,7 +19,7 @@
 
 @font-face {
   font-family: "Bricolage Grotesque";
-  src: url("../fonts/BricolageGrotesque.ttf") format("truetype");
+  src: url("./fonts/BricolageGrotesque.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

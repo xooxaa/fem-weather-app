@@ -50,8 +50,8 @@ export interface WeatherData<
   utc_offset_seconds: number;
 
   current: CurrentData<C>;
-  hourly: HourlyData<H>;
-  daily: DailyData<D>;
+  hourly: Array<HourlyData<H>>;
+  daily: Array<DailyData<D>>;
 }
 
 export const fetchWeatherData = async <T extends WeatherDataParams>(

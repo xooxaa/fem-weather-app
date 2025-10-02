@@ -1,13 +1,15 @@
 <script setup lang="ts">
-const forecastData = [
-  { day: "Mon", icon: "partly-cloudy", lowTemp: 12, highTemp: 18 },
-  { day: "Tue", icon: "sunny", lowTemp: 10, highTemp: 20 },
-  { day: "Wed", icon: "rain", lowTemp: 9, highTemp: 15 },
-  { day: "Thu", icon: "storm", lowTemp: 8, highTemp: 14 },
-  { day: "Fri", icon: "fog", lowTemp: 11, highTemp: 22 },
-  { day: "Sat", icon: "snow", lowTemp: 13, highTemp: 19 },
-  { day: "Sun", icon: "drizzle", lowTemp: 10, highTemp: 17 },
-];
+import { useWeatherStore } from "@/stores/weather";
+import { storeToRefs } from "pinia";
+import { getIconFromWeatherCode } from "@/utils/weatherIcons";
+
+const weatherStore = useWeatherStore();
+const { weatherData } = storeToRefs(weatherStore);
+
+function getWeekday(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { weekday: "short" });
+}
 </script>
 
 <template>
@@ -16,14 +18,15 @@ const forecastData = [
 
     <div
       class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"
+      v-if="weatherData?.daily"
     >
       <DailyForcastCard
-        v-for="(day, idx) in forecastData"
-        :key="`${day.day}-${idx}`"
-        :day="day.day"
-        :icon="day.icon"
-        :lowTemp="day.lowTemp"
-        :highTemp="day.highTemp"
+        v-for="(day, idx) in weatherData?.daily"
+        :key="`${day}-${idx}`"
+        :day="getWeekday(day.time)"
+        :icon="getIconFromWeatherCode(day.weather_code)"
+        :lowTemp="day.temperature_2m_min"
+        :highTemp="day.temperature_2m_max"
       />
     </div>
   </div>
