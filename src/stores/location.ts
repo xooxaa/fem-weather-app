@@ -89,6 +89,14 @@ export const useLocationStore = defineStore("location", () => {
     }
   };
 
+  const addCurrentLocationToFavorites = () => {
+    addFavoriteLocation(weatherLocation.value);
+  };
+
+  const removeCurrentLocationFromFavorites = () => {
+    removeFavoriteLocation(weatherLocation.value.id);
+  };
+
   const removeFavoriteLocation = (locationId: number) => {
     favoriteLocations.value = favoriteLocations.value.filter(
       (favoriteLocation) => favoriteLocation.id !== locationId
@@ -124,7 +132,7 @@ export const useLocationStore = defineStore("location", () => {
     searchGeolocations,
     setWeatherLocation,
     setRandomPredefinedLocation,
-    addFavoriteLocation,
-    removeFavoriteLocation,
+    addCurrentLocationToFavorites,
+    removeCurrentLocationFromFavorites,
   };
 });

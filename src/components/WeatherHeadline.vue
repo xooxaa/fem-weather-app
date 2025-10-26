@@ -9,7 +9,46 @@ const headlines = [
   "Blowing in the wind?",
   "You are my sunshine!",
   "When the sun goes down?",
+  "It's raining men!",
+  "Walking on sunshine!",
+  "Rusted from the Rain!",
+  "Over the Rainbow!",
+  "Cover me in sunshine!",
 ];
+
+const headlinesExtended = [
+  {
+    title: "When the sun goes down?",
+    author: "Arctic Monkeys",
+    link: "https://www.youtube.com/watch?v=EqkBRVukQmE",
+  },
+  {
+    title: "Blowing in the wind?",
+    author: "Bob Dylan",
+    link: "https://www.youtube.com/watch?v=MMFj8uDubsE",
+  },
+  {
+    title: "Here comes the sun!",
+    author: "The Beatles",
+    link: "https://www.youtube.com/watch?v=n6j4TGqVl5g",
+  },
+  {
+    title: "You are my sunshine!",
+    author: "Johnny Cash",
+    link: "https://www.youtube.com/watch?v=cGa3zFRqDn4",
+  },
+  {
+    title: "Let the sun shine in!",
+    author: "The 5th Dimension",
+    link: "https://www.youtube.com/watch?v=dxNvFVI2G38",
+  },
+  {
+    title: "You can stand under my umbrella!",
+    author: "Rihanna",
+    link: "https://www.youtube.com/watch?v=CvBfHwUxHIk",
+  },
+];
+
 const randomIndex = Math.floor(Math.random() * headlines.length);
 const headline = headlines[randomIndex];
 </script>
